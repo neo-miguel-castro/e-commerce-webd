@@ -1,7 +1,10 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.includes(image_attachment: :blob)
-    #@order_item = current_order.order_items.new
+    if params[:search].present?
+      @products = Product.includes(image_attachment: :blob).where('name ILIKE ?', "%#{params[:search]}%")
+    else
+      @products = Product.includes(image_attachment: :blob)
+    end
   end
 
   def show
