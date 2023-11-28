@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'static_pages/about'
   devise_for :users
   namespace :admin do
     resources :orders
@@ -14,6 +15,7 @@ Rails.application.routes.draw do
   resource :cart, only: [:show]
   resources :order_items, only: [:create, :update, :destroy]
 
+  get '/about', to: 'static_pages#about'
   get '/category/:id',  to: 'product_categories#show', as: "category"
   root to: "products#index"
 
